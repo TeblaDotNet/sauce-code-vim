@@ -1,4 +1,4 @@
-# Open Sauce Food — Vim/Neovim support v1
+# Sauce Code — Vim/Neovim support v1
 
 Lightweight Sauce Code editing for `.opensauce` files. This is a Vim runtime
 plugin: no Core installation, Node.js, language server or external plugin is
@@ -155,3 +155,11 @@ are CC BY 4.0, following the project's split licensing approach.
 The sample is adapted from Open Sauce Food VS Code extension v0.1.0,
 copyright 2026 Tebla and Open Sauce Food contributors. See [LICENSE](LICENSE)
 and [LICENSES](LICENSES/). No third-party recipes or brand assets are bundled.
+
+## Project boundaries and contributions
+
+Sauce Code is the language and tooling; Open Sauce Food is the culinary encyclopaedia and recipe collection built using it. Existing opensauce commands, filetype and extension identifiers remain unchanged. Knowledge is optional and is not loaded for editor completion. See the [seven-repository setup map](../core/docs/ecosystem.md), [contribution and AI-development disclosure](../core/CONTRIBUTING.md#development-process), and this repository's [licence scopes](LICENSE). Code review and culinary review are separate.
+
+Optional completion uses a separate LSP client and server: see the [standalone Language Server and native Neovim configuration](../language-server/README.md). Neovim 0.11.1+ supports that configuration API; ordinary Vim needs a separately chosen LSP client. Standard Vim bracket matching and this plugin's syntax/comment/indent support do not depend on it. Existing host-validation records above are historical, not new validation claims.
+
+Stage 6 documentation validation reran tests/run.vim in installed Neovim 0.12.6: passed, including three Corpus fixtures. Vim was not available on PATH for this pass; the earlier Vim validation remains historical evidence, not a new run.
