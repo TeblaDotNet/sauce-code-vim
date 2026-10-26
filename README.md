@@ -1,161 +1,37 @@
-# Sauce Code — Vim/Neovim support v1
+# Sauce Code for Vim and Neovim
 
-This Vimscript runtime plugin adds Sauce Code support for `.opensauce` files in Vim 8+ and Neovim. Syntax highlighting, comments and indentation work without Core, Node.js or an LSP server.
-
-## Features
-
-- Automatic filetype detection for existing and new `.opensauce` files.
-- Theme-defined highlighting for sections, things, equipment declarations,
-  actions, quantities and precision markers, operators, comments, product
-  labels, variants/parts, results and explicit groups.
-- `#` comments through `comments` and `commentstring`. Literal URL fragments
-  and Markdown images are protected from comment highlighting.
-- Standard `%` matching for parentheses, braces, square brackets and angle
-  brackets. This does not insert closing brackets automatically.
-- Basic indentation at explicit `[` group boundaries, including Optional,
-  Meanwhile and Repeat. Existing continuation indentation is preserved.
-- Unindented `<<<` / `>>>` fences under `::source` keep their contents literal,
-  including apparent sections and comments.
-
-The plugin respects your theme and indentation width. It does not set fonts,
-colours, tabs versus spaces, text width or key mappings. Automatic text/comment
-wrapping and automatic comment continuation are disabled in Sauce Code buffers.
-Buffer-local options have undo hooks for filetype changes.
+A small Vimscript plugin for editing `.opensauce` recipes. It adds syntax highlighting, file detection, comment settings, bracket matching and basic indentation.
 
 ## Install
 
-Copy this entire directory into a native editor package directory named
-`opensauce`. Do not copy just the repository's parent folder. The resulting
-layout must include `opensauce/ftdetect/opensauce.vim`.
+Copy this repository's contents into a Vim/Neovim package folder named `opensauce`. The installed directory should contain `opensauce/ftdetect/opensauce.vim`.
 
-### Vim
-
-For Vim 8 or newer, a usual location is:
+**Vim 8+:** common package locations are:
 
 - Linux/macOS: `~/.vim/pack/food/start/opensauce/`
 - Windows: `~/vimfiles/pack/food/start/opensauce/`
 
-Check `:set packpath?` if you use a custom configuration. Add these lines to
-your vimrc if they are not already enabled:
+Add these lines to your `vimrc` if they're not already enabled:
 
 ```vim
 filetype plugin indent on
 syntax enable
 ```
 
-### Neovim
-
-Inside Neovim, run:
+**Neovim:** run this inside Neovim to find a suitable package path:
 
 ```vim
 :echo stdpath('data') . '/site/pack/food/start/opensauce'
 ```
 
-Copy this directory to the printed path. Restart Neovim and open a recipe.
-Filetype plugins, indentation and syntax are normally enabled; if your setup
-disables them, use the same two commands shown for Vim (or run them through
-`vim.cmd` in init.lua). See the official
-[Neovim package documentation](https://neovim.io/doc/user/pack/).
+Copy the plugin there and restart Neovim. A plugin manager also works if it adds the same runtime directory.
 
-A plugin manager is optional: it only needs to add this runtime directory.
-No dependency installation or build step is necessary.
+## Try it
 
-### Try without installing
+Open a `.opensauce` file and run `:set filetype?`; it should report `opensauce`. Syntax colours follow your editor's theme. The plugin handles `#` comments, bracket matching with `%`, and indentation for explicit square-bracket groups.
 
-Start Vim or Neovim, then run (adjust the path):
+For autocomplete, add the separate [Sauce Code Language Server](https://github.com/TeblaDotNet/sauce-code-language-server). Neovim 0.11.1+ can use its native LSP client; the language-server README includes a working configuration. Syntax highlighting works independently of the server.
 
-```vim
-:set runtimepath^=C:/path/to/vim-plugin
-:filetype plugin indent on
-:syntax enable
-:runtime! ftdetect/opensauce.vim
-:edit C:/path/to/vim-plugin/samples/example.opensauce
-```
+## Contributing and tests
 
-## Check the installation
-
-Run `:set filetype?` and `:set syntax?`; both should report `opensauce`.
-Run `:setlocal commentstring?` to see `# %s`.
-Place the cursor on a thing, action or quantity and run:
-
-```vim
-:echo synIDattr(synID(line('.'), col('.'), 1), 'name')
-```
-
-You should see an `opensauce...` syntax group. Theme colours may intentionally
-be shared between several groups. You can customize the named groups using
-your normal editor highlight configuration.
-
-Set your preferred `shiftwidth`; entering a line after an explicit group
-opener indents one step, and typing a standalone closing bracket aligns it with
-its opener. Ordinary recipe lines retain authored indentation. This is not a
-recipe formatter; it does not infer nesting from culinary meaning.
-
-## Tests
-
-From this repository, run either or both:
-
-```sh
-vim -Nu NONE -n -es -S tests/run.vim
-nvim --headless -u NONE -n -S tests/run.vim
-```
-
-In PowerShell, prefix a quoted editor executable path with `&`.
-A failing assertion produces a nonzero exit code; details and fixture count
-are written to `tests/results.log` (ignored by Git).
-
-Tests exercise filetype detection, semantic syntax groups, comments, products,
-raw-source isolation, malformed-line recovery, actual insert-mode indentation,
-standard bracket matching and option cleanup. They never write to recipes.
-
-If a sibling `../corpus` checkout exists, tests also read Ravioli, No-knead Bread
-and Cointreau Margarita. To require these fixtures from another checkout, set
-`OSF_CORPUS` to its path. Without Corpus, standalone plugin tests still run;
-the log explicitly records zero Corpus fixtures. No Core/Node dependencies are
-used by the test suite.
-
-Original v1 validation ran on Git for Windows Vim 9.2 (patches 1–858), including three Corpus fixtures. Vim 8 is a compatibility target but was not separately tested. Neovim was not available for that original test run; later Neovim validation is recorded below.
-
-## What it does not do
-
-Core's current [Sauce Code specification](https://github.com/TeblaDotNet/sauce-code/blob/main/SPEC.md) is authoritative.
-The sibling [VS Code extension v0.1.0](https://github.com/TeblaDotNet/sauce-code-vscode/blob/main/README.md) informed
-the concept coverage. These local links assume the usual umbrella checkout;
-neither repository is required to use this plugin.
-
-This is syntax highlighting, not a second parser. It does not validate recipes,
-resolve canonical vocabulary, distinguish local roles from canonical identities,
-or provide diagnostics, completion, live preview, formatting, LSP or Tree-sitter.
-
-Equipment is styled specially in `::equipment`; a thing referenced elsewhere
-has generic thing styling, as in the VS Code grammar. Known quantity suffixes
-are highlighted with numbers; arbitrary unit text remains ordinary text.
-Story and notes are conservative prose contexts. Unknown section bodies use
-ordinary Sauce Code highlighting.
-
-Differences from VS Code: Vim highlight groups replace TextMate scopes;
-raw-source payload uses Normal styling; no auto-closing quotes/brackets or
-surround-selection commands are added. Comments are configured for native
-editor commands and tools, without adding a comment-toggle mapping. Indentation
-uses explicit group openers and respects existing continuation indentation.
-Lexical highlighting may differ on malformed or unusually complex input.
-
-Syntax synchronization starts at the beginning of the buffer so embedded
-section-like lines in raw text stay safe. This favors correctness over speed
-for very large retained source documents.
-
-## Licensing
-
-Runtime files and tests are MIT. This README and the authored sample encoding
-are CC BY 4.0, following the project's split licensing approach.
-The sample is adapted from Open Sauce Food VS Code extension v0.1.0,
-copyright 2026 Tebla and Open Sauce Food contributors. See [LICENSE](LICENSE)
-and [LICENSES](LICENSES/). No third-party recipes or brand assets are bundled.
-
-## Project and contributions
-
-Sauce Code is the language and tooling; Open Sauce Food is the culinary encyclopaedia and recipe collection built using it. Existing opensauce commands, filetype and extension identifiers remain unchanged. Knowledge is optional and is not loaded for editor completion. See the [seven-repository setup map](https://github.com/TeblaDotNet/sauce-code/blob/main/docs/ecosystem.md), [contribution and AI-development disclosure](https://github.com/TeblaDotNet/sauce-code/blob/main/CONTRIBUTING.md#development-process), and this repository's [licence scopes](LICENSE). Code review and culinary review are separate.
-
-Optional completion uses a separate LSP client and server. Download it from [Language Server releases](https://github.com/TeblaDotNet/sauce-code-language-server/releases/latest); Windows x64 is native-tested and other targets are cross-compiled only: see the [standalone Language Server and native Neovim configuration](https://github.com/TeblaDotNet/sauce-code-language-server/blob/main/README.md). Neovim 0.11.1+ supports that configuration API; ordinary Vim needs a separately chosen LSP client. Standard Vim bracket matching and this plugin's syntax/comment/indent support do not depend on it. Existing host-validation records above are historical, not new validation claims.
-
-Stage 6 documentation validation reran tests/run.vim in installed Neovim 0.12.6: passed, including three Corpus fixtures. Vim was not available on PATH for this pass; the earlier Vim validation remains historical evidence, not a new run.
+For syntax groups, raw-source fences, local options, testing and known limitations, see [plugin details](docs/syntax-and-testing.md). The runtime code and tests are MIT; documentation and sample encoding have their own terms. See [LICENSE](LICENSE) and [LICENSES](LICENSES/).
