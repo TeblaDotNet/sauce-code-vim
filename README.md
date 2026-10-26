@@ -2,6 +2,8 @@
 
 A small Vimscript plugin for editing `.opensauce` recipes. It adds syntax highlighting, file detection, comment settings, bracket matching and basic indentation.
 
+**Related repositories:** [Sauce Code Core](https://github.com/TeblaDotNet/sauce-code) · [Language Server](https://github.com/TeblaDotNet/sauce-code-language-server) · [Recipes](https://github.com/TeblaDotNet/open-sauce-food-corpus) · [VS Code](https://github.com/TeblaDotNet/sauce-code-vscode)
+
 ## Install
 
 Copy this repository's contents into a Vim/Neovim package folder named `opensauce`. The installed directory should contain `opensauce/ftdetect/opensauce.vim`.
