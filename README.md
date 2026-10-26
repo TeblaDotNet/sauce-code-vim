@@ -1,8 +1,6 @@
 # Sauce Code — Vim/Neovim support v1
 
-Lightweight Sauce Code editing for `.opensauce` files. This is a Vim runtime
-plugin: no Core installation, Node.js, language server or external plugin is
-needed. It uses legacy Vimscript, intended for Vim 8+ and Neovim.
+This Vimscript runtime plugin adds Sauce Code support for `.opensauce` files in Vim 8+ and Neovim. Syntax highlighting, comments and indentation work without Core, Node.js or an LSP server.
 
 ## Features
 
@@ -24,7 +22,7 @@ colours, tabs versus spaces, text width or key mappings. Automatic text/comment
 wrapping and automatic comment continuation are disabled in Sauce Code buffers.
 Buffer-local options have undo hooks for filetype changes.
 
-## Manual installation
+## Install
 
 Copy this entire directory into a native editor package directory named
 `opensauce`. Do not copy just the repository's parent folder. The resulting
@@ -74,7 +72,7 @@ Start Vim or Neovim, then run (adjust the path):
 :edit C:/path/to/vim-plugin/samples/example.opensauce
 ```
 
-## Verify it is active
+## Check the installation
 
 Run `:set filetype?` and `:set syntax?`; both should report `opensauce`.
 Run `:setlocal commentstring?` to see `# %s`.
@@ -116,11 +114,9 @@ and Cointreau Margarita. To require these fixtures from another checkout, set
 the log explicitly records zero Corpus fixtures. No Core/Node dependencies are
 used by the test suite.
 
-Validation for v1: Git for Windows Vim 9.2, patches 1–858, with all three Corpus
-fixtures. Neovim was not installed and has not been host-tested. Vim 8 is a
-compatibility target, not a separately tested host.
+Original v1 validation ran on Git for Windows Vim 9.2 (patches 1–858), including three Corpus fixtures. Vim 8 is a compatibility target but was not separately tested. Neovim was not available for that original test run; later Neovim validation is recorded below.
 
-## Language authority and limitations
+## What it does not do
 
 Core's current [Sauce Code specification](../core/SPEC.md) is authoritative.
 The sibling [VS Code extension v0.1.0](../vscode-extension/README.md) informed
@@ -156,7 +152,7 @@ The sample is adapted from Open Sauce Food VS Code extension v0.1.0,
 copyright 2026 Tebla and Open Sauce Food contributors. See [LICENSE](LICENSE)
 and [LICENSES](LICENSES/). No third-party recipes or brand assets are bundled.
 
-## Project boundaries and contributions
+## Project and contributions
 
 Sauce Code is the language and tooling; Open Sauce Food is the culinary encyclopaedia and recipe collection built using it. Existing opensauce commands, filetype and extension identifiers remain unchanged. Knowledge is optional and is not loaded for editor completion. See the [seven-repository setup map](../core/docs/ecosystem.md), [contribution and AI-development disclosure](../core/CONTRIBUTING.md#development-process), and this repository's [licence scopes](LICENSE). Code review and culinary review are separate.
 
