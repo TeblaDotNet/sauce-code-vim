@@ -67,11 +67,11 @@ No dependency installation or build step is necessary.
 Start Vim or Neovim, then run (adjust the path):
 
 ```vim
-:set runtimepath^=E:/Projects/open-sauce-food/vim-plugin
+:set runtimepath^=C:/path/to/vim-plugin
 :filetype plugin indent on
 :syntax enable
 :runtime! ftdetect/opensauce.vim
-:edit E:/Projects/open-sauce-food/vim-plugin/samples/example.opensauce
+:edit C:/path/to/vim-plugin/samples/example.opensauce
 ```
 
 ## Verify it is active
