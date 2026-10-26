@@ -118,8 +118,8 @@ Original v1 validation ran on Git for Windows Vim 9.2 (patches 1–858), includi
 
 ## What it does not do
 
-Core's current [Sauce Code specification](../core/SPEC.md) is authoritative.
-The sibling [VS Code extension v0.1.0](../vscode-extension/README.md) informed
+Core's current [Sauce Code specification](https://github.com/TeblaDotNet/sauce-code/blob/main/SPEC.md) is authoritative.
+The sibling [VS Code extension v0.1.0](https://github.com/TeblaDotNet/sauce-code-vscode/blob/main/README.md) informed
 the concept coverage. These local links assume the usual umbrella checkout;
 neither repository is required to use this plugin.
 
@@ -154,8 +154,8 @@ and [LICENSES](LICENSES/). No third-party recipes or brand assets are bundled.
 
 ## Project and contributions
 
-Sauce Code is the language and tooling; Open Sauce Food is the culinary encyclopaedia and recipe collection built using it. Existing opensauce commands, filetype and extension identifiers remain unchanged. Knowledge is optional and is not loaded for editor completion. See the [seven-repository setup map](../core/docs/ecosystem.md), [contribution and AI-development disclosure](../core/CONTRIBUTING.md#development-process), and this repository's [licence scopes](LICENSE). Code review and culinary review are separate.
+Sauce Code is the language and tooling; Open Sauce Food is the culinary encyclopaedia and recipe collection built using it. Existing opensauce commands, filetype and extension identifiers remain unchanged. Knowledge is optional and is not loaded for editor completion. See the [seven-repository setup map](https://github.com/TeblaDotNet/sauce-code/blob/main/docs/ecosystem.md), [contribution and AI-development disclosure](https://github.com/TeblaDotNet/sauce-code/blob/main/CONTRIBUTING.md#development-process), and this repository's [licence scopes](LICENSE). Code review and culinary review are separate.
 
-Optional completion uses a separate LSP client and server: see the [standalone Language Server and native Neovim configuration](../language-server/README.md). Neovim 0.11.1+ supports that configuration API; ordinary Vim needs a separately chosen LSP client. Standard Vim bracket matching and this plugin's syntax/comment/indent support do not depend on it. Existing host-validation records above are historical, not new validation claims.
+Optional completion uses a separate LSP client and server: see the [standalone Language Server and native Neovim configuration](https://github.com/TeblaDotNet/sauce-code-language-server/blob/main/README.md). Neovim 0.11.1+ supports that configuration API; ordinary Vim needs a separately chosen LSP client. Standard Vim bracket matching and this plugin's syntax/comment/indent support do not depend on it. Existing host-validation records above are historical, not new validation claims.
 
 Stage 6 documentation validation reran tests/run.vim in installed Neovim 0.12.6: passed, including three Corpus fixtures. Vim was not available on PATH for this pass; the earlier Vim validation remains historical evidence, not a new run.
